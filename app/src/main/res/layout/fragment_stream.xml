@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:stream="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/coordinator"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <com.github.niqdev.mjpeg.MjpegSurfaceView
+            android:id="@+id/stream"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="top"
+            stream:type="stream_default" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:background="@android:color/background_light"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/up"
+                    style="@style/controllerButton"
+                    android:contentDescription="@string/iv.gen"
+                    android:src="@drawable/ic_expand_less_black_24dp" />
+
+                <ImageView
+                    android:id="@+id/down"
+                    style="@style/controllerButton"
+                    android:contentDescription="@string/iv.gen"
+                    android:src="@drawable/ic_expand_more_black_24dp" />
+
+                <ImageView
+                    android:id="@+id/left"
+                    style="@style/controllerButton"
+                    android:contentDescription="@string/iv.gen"
+                    android:src="@drawable/ic_chevron_left_black_24dp" />
+
+                <ImageView
+                    android:id="@+id/right"
+                    style="@style/controllerButton"
+                    android:contentDescription="@string/iv.gen"
+                    android:src="@drawable/ic_chevron_right_black_24dp" />
+
+            </LinearLayout>
+
+            <VideoView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/cardview_dark_background"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:background="@android:color/background_light"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/center"
+                    style="@style/controllerButton"
+                    android:contentDescription="@string/iv.gen"
+                    android:src="@drawable/ic_fullscreen_black_24dp" />
+
+                <ImageView
+                    android:id="@+id/cgi"
+                    style="@style/controllerButton"
+                    android:contentDescription="@string/iv.gen"
+                    android:src="@drawable/ic_copyright_black_24dp" />
+
+
+            </LinearLayout>
+        </LinearLayout>
+
+
+    </FrameLayout>
+
+
+</android.support.design.widget.CoordinatorLayout>

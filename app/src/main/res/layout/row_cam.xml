@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/card_view"
+    style="@style/cardLight"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/spacing_medium">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/img"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:contentDescription="@string/iv.gen"
+            android:scaleType="centerCrop" />
+
+        <TextView
+            android:id="@+id/name"
+            style="@style/textRowCam.title" />
+
+        <TextView
+            android:id="@+id/type"
+            style="@style/textRowCam.subtitle" />
+
+
+        <TextView
+            android:id="@+id/edit"
+            style="@style/textRowCam.btn"
+            android:background="@drawable/btn_green_green_nob"
+            android:text="@string/edit" />
+
+    </LinearLayout>
+
+
+</android.support.v7.widget.CardView>

@@ -1,0 +1,58 @@
+<resources>
+    <string name="app_name">Ipcam</string>
+
+    <string name="close">close</string>
+
+    <string name="error.stream">Cannot get stream</string>
+    <string name="error.verify">Cannot verify camera</string>
+    <string name="error.required">Required</string>
+    <string name="status.error">Status error</string>
+    <string name="status.ok">Status ok</string>
+    <string name="error.nocgi">This camera does not have registered cgi</string>
+
+    <string name="camExt.name">Camera Name</string>
+    <string name="camExt.host">Host</string>
+    <string name="cam.cgi">CGI</string>
+    <string name="cam.name">Name</string>
+    <string name="camExt.protocol">Protocol</string>
+    <string name="camExt.type">Type</string>
+    <string name="camExt.port">Port (default 80)</string>
+    <string name="camExt.username">Username</string>
+    <string name="camExt.password">Password</string>
+    <string name="prefix.http">http://</string>
+
+    <string name="dialog.howtoupload">How to upload</string>
+    <string name="dialog.uploadinstruction">Put data.json in ipcam folder (you may need to create it) then click Import Settings.</string>
+    <string name="dialog.uploaderror">Error importing user settings.</string>
+    <string name="dialog.uploadsuccess">Settings successfully imported</string>
+    <string name="dialog.confirm">Please confirm</string>
+    <string name="dialog.deletecam">This camera will be deleted</string>
+    <string name="dialog.cancelform">Camera registration is not finished. Cancel it ?</string>
+    <string name="dialog.deletecgi">This cgi will be deleted : %s</string>
+    <string name="dialog.cgiclicked">Cgi clicked : %s</string>
+    <string name="dialog.dbdumped">Settings has been saved in ipcam folder</string>
+
+    <string name="menu.exportdb">Export Settings</string>
+    <string name="menu.importdb">Import Settings</string>
+
+
+
+    <string name="fragment.edit">Edit</string>
+    <string name="fragment.switch">Custom Access</string>
+
+    <string name="edit">edit</string>
+
+    <string name="iv.gen">generic</string>
+    <string-array name="cams">
+        <item>Panasonic VL-CM210</item>
+        <item>Planex CS-WMV043G-NV</item>
+    </string-array>
+
+    <string-array name="protocols">
+        <item>http://</item>
+    </string-array>
+
+
+
+
+</resources>

@@ -1,0 +1,81 @@
+<resources>
+
+    <!-- CamType application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="ThemeOverlay.MyApp.ActionBar" parent="ThemeOverlay.AppCompat.ActionBar">
+        <!-- Parent theme sets colorControlNormal to textColorPrimary. -->
+        <item name="android:textColorPrimary">@android:color/white</item>
+    </style>
+
+    <style name="formElement">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/spacing_medium</item>
+    </style>
+
+    <style name="formTitle" parent="formElement">
+        <item name="android:textColor">@android:color/darker_gray</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:paddingLeft">@dimen/spacing_small</item>
+    </style>
+
+    <style name="formEditText" parent="formElement">
+        <item name="android:layout_marginTop">@dimen/spacing_xlarge</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="cardLight" parent="CardView">
+        <item name="android:layout_margin">@dimen/spacing_medium</item>
+        <item name="cardElevation">2dp</item>
+        <item name="cardPreventCornerOverlap">false</item>
+        <item name="contentPadding">10dp</item>
+    </style>
+
+    <style name="textRowCam">
+        <item name="android:textColor">@android:color/primary_text_light</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/spacing_medium</item>
+    </style>
+
+    <style name="textRowCam.title" parent="textRowCam">
+        <item name="android:padding">@dimen/spacing_small</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="textRowCam.subtitle" parent="textRowCam">
+        <item name="android:padding">@dimen/spacing_xsmall</item>
+        <item name="android:textSize">15sp</item>
+    </style>
+
+    <style name="textRowCam.btn">
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:paddingLeft">@dimen/spacing_large</item>
+        <item name="android:paddingRight">@dimen/spacing_large</item>
+        <item name="android:paddingTop">@dimen/spacing_medium</item>
+        <item name="android:paddingBottom">@dimen/spacing_medium</item>
+        <item name="android:textSize">15sp</item>
+
+    </style>
+
+    <style name="controllerButton">
+        <item name="android:layout_height">48dp</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:padding">@dimen/spacing_small</item>
+        <item name="android:background">@drawable/btn_tr_grey_nob</item>
+
+    </style>
+    <style name="AppDialogTheme" parent="Theme.AppCompat.Light.Dialog">
+        <item name="android:windowNoTitle">false</item>
+        <item name="android:windowFullscreen">false</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowCloseOnTouchOutside">true</item>
+    </style>
+</resources>
