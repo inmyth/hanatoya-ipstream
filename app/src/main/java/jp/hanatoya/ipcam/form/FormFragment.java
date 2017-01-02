@@ -120,7 +120,7 @@ public class FormFragment extends Fragment implements FormContract.View {
                     }
                 });
         presenter.start();
-        Debug.setCam(edname, edhost, edport, edusername, edpassword);
+//        Debug.setCam(edname, edhost, edport, edusername, edpassword);
         return view;
     }
 

@@ -26,6 +26,9 @@ v.104
 - fixed bugs on edit form back (Event back listener activated in MainActivity instead of EditActivity)
 - comestics fix on cgi rows
 
+v.105
+- removed debug line
+
 
 TODOS:
 - img cap
