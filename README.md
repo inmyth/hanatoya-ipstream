@@ -21,6 +21,11 @@ v.103
 - added img cap for main fragment
 - removed blob cap from db
 
+v.104
+- changed test from stream to img cap
+- fixed bugs on edit form back (Event back listener activated in MainActivity instead of EditActivity)
+- comestics fix on cgi rows
+
 
 TODOS:
 - img cap

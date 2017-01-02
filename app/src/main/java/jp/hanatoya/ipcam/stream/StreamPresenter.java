@@ -132,7 +132,7 @@ public class StreamPresenter implements StreamContract.Presenter{
 
     @Override
     public void openCgiDialogOrToast() {
-        if (camExt.getCam().getSwitches() == null){
+        if (camExt.getCam().getSwitches().isEmpty()){
             view.toastNoCgi();
         }else{
             MyApp.getInstance().getBus().send(new Events.OpenCgiDialog(camExt));

@@ -4,6 +4,8 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:id="@+id/root"
+    android:paddingRight="@dimen/spacing_medium"
+    android:paddingLeft="@dimen/spacing_medium"
     >
 
     <TextView
@@ -11,8 +13,6 @@
         style="@style/textRowCam.title"
         android:layout_width="match_parent"
         android:maxLines="2"
-        android:paddingRight="@dimen/spacing_medium"
-        android:paddingLeft="@dimen/spacing_medium"
         android:paddingTop="@dimen/spacing_medium"
         android:paddingBottom="@dimen/spacing_small"/>
 

@@ -1,9 +1,19 @@
 package jp.hanatoya.ipcam.form;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.util.Base64;
+import android.util.Log;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.NetworkResponse;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.ImageRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.model.GlideUrl;
 import com.bumptech.glide.load.resource.drawable.GlideDrawable;
@@ -12,6 +22,9 @@ import com.bumptech.glide.request.target.Target;
 import com.github.niqdev.mjpeg.Mjpeg;
 import com.github.niqdev.mjpeg.MjpegInputStream;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import jp.hanatoya.ipcam.BasePresenter;
 import jp.hanatoya.ipcam.MyApp;
 import jp.hanatoya.ipcam.main.Events;
@@ -19,11 +32,13 @@ import jp.hanatoya.ipcam.models.CamExt;
 import jp.hanatoya.ipcam.repo.Cam;
 import jp.hanatoya.ipcam.repo.CamDao;
 import jp.hanatoya.ipcam.utils.MyNetworkUtils;
+import jp.hanatoya.ipcam.utils.VolleySingleton;
 import rx.functions.Action1;
 
 
 public class FormPresenter implements FormContract.Presenter {
     private static final int TIMEOUT = 5;
+    private static final String TAG_PING = "TAG_PING";
     private CamExt camExt;
     private boolean isTesting;
     private boolean istestOk;
@@ -66,81 +81,70 @@ public class FormPresenter implements FormContract.Presenter {
         istestOk = false;
         camExt.initAPI();
 
-//
-//        Glide.with(ctx).load(MyNetworkUtils.buildGlideUrlWithAuth(camExt.getImgUrl(), camExt.getCam().getUsername(), camExt.getCam().getPassword()))
-//                .listener(new RequestListener<GlideUrl, GlideDrawable>() {
-//                    @Override
-//                    public boolean onException(Exception e, GlideUrl model, Target<GlideDrawable> target, boolean isFirstResource) {
-//                        isTesting = false;
-//                        if (!istestOk) {
-//                            MyApp.getInstance().getBus().send(new Events.CameraPing(false));
+
+//        Mjpeg.newInstance()
+//                .credential(camExt.getCam().getUsername(), camExt.getCam().getPassword())
+//                .open(camExt.getStreamUrl(), TIMEOUT)
+//                .subscribe(new Action1<MjpegInputStream>() {
+//                               @Override
+//                               public void call(MjpegInputStream mjpegInputStream) {
+//                                   isTesting = false;
+//                                   istestOk = true;
+//                                    MyApp.getInstance().getBus().send(new Events.CameraPing(true));
+//                               }
+//                           },
+//                        new Action1<Throwable>() {
+//                            @Override
+//                            public void call(Throwable throwable) {
+//                                isTesting = false;
+//                                if (!istestOk) {
+//                                    MyApp.getInstance().getBus().send(new Events.CameraPing(false));
+//                                }
+//                            }
 //                        }
-//                        return true;
-//                    }
-//
-//                    @Override
-//                    public boolean onResourceReady(GlideDrawable resource, GlideUrl model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
-//                        isTesting = false;
-//                        istestOk = true;
-//                        MyApp.getInstance().getBus().send(new Events.CameraPing(true));
-//                        return true;
-//                    }
-//                });
+//                );
 
+        VolleySingleton.getInstance(ctx).getRequestQueue().cancelAll(TAG_PING);
 
-        Mjpeg.newInstance()
-                .credential(camExt.getCam().getUsername(), camExt.getCam().getPassword())
-                .open(camExt.getStreamUrl(), TIMEOUT)
-                .subscribe(new Action1<MjpegInputStream>() {
-                               @Override
-                               public void call(MjpegInputStream mjpegInputStream) {
-                                   isTesting = false;
-                                   istestOk = true;
-                                    MyApp.getInstance().getBus().send(new Events.CameraPing(true));
-                               }
-                           },
-                        new Action1<Throwable>() {
-                            @Override
-                            public void call(Throwable throwable) {
-                                isTesting = false;
-                                if (!istestOk) {
-                                    MyApp.getInstance().getBus().send(new Events.CameraPing(false));
-                                }
+        ImageRequest stringRequest = new ImageRequest(camExt.getImgUrl(),
+
+                new Response.Listener<Bitmap>() {
+
+                    @Override
+                    public void onResponse(Bitmap response) {
+                       isTesting = false;
+                       istestOk = true;
+                        MyApp.getInstance().getBus().send(new Events.CameraPing(true));
+                    }
+                }, 0, 0, null, Bitmap.Config.RGB_565,
+
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                            isTesting = false;
+                            if (!istestOk) {
+                                MyApp.getInstance().getBus().send(new Events.CameraPing(false));
                             }
-                        }
-                );
-//        queue.cancelAll(TAG_PING);
-//        Log.e("Volley", "start");
-//        StringRequest stringRequest = new StringRequest(Request.Method.GET, camExt.getStreamUrl(),
-//                new Response.Listener<String>() {
-//
-//                    @Override
-//                    public void onResponse(String response) {
-//                    }
-//                }, new Response.ErrorListener() {
-//            @Override
-//            public void onErrorResponse(VolleyError error) {
-//                Log.e("ErrorResponse", "trig");
-//            }
-//        }){
-//            @Override
-//            protected Response<String> parseNetworkResponse(NetworkResponse response) {
-//                Log.e("NetworkRes", String.valueOf(response.statusCode));
-//                return super.parseNetworkResponse(response);
-//            }
-//
-//            @Override
-//            public Map<String, String> getHeaders() throws AuthFailureError {
-//                HashMap<String, String> params = new HashMap<String, String>();
-//                String creds = String.format("%s:%s",camExt.getUsername(),camExt.getPassword());
-//                String auth = "Basic " + Base64.encodeToString(creds.getBytes(), Base64.DEFAULT);
-//                params.put("Authorization", auth);
-//                return params;
-//            }
-//        };
-//
-//        stringRequest.setTag(TAG_PING);
-//        queue.add(stringRequest);
+                    }
+                }
+
+
+        ){
+            @Override
+            protected Response<Bitmap> parseNetworkResponse(NetworkResponse response) {
+                return super.parseNetworkResponse(response);
+            }
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                HashMap<String, String> params = new HashMap<>();
+                MyNetworkUtils.addAuthToHeaderParam(params, camExt.getCam().getUsername(), camExt.getCam().getPassword());
+                return params;
+            }
+        };
+
+        stringRequest.setTag(TAG_PING);
+        VolleySingleton.getInstance(ctx).addToRequestQueue(stringRequest);
 
     }
 

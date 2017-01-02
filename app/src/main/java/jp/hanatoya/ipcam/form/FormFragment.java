@@ -104,7 +104,7 @@ public class FormFragment extends Fragment implements FormContract.View {
                             if (event.isOk) {
                                 presenter.getCamExt().getCam().setStatus(0);
                                 presenter.save();
-                                MyApp.getInstance().getBus().send(new Events.RequestBack());
+                                presenter.close();
                             } else {
                                 presenter.getCamExt().getCam().setStatus(-1);
                                 Snackbar.make(coordinatorLayout, R.string.error_verify, Snackbar.LENGTH_INDEFINITE)
@@ -120,7 +120,7 @@ public class FormFragment extends Fragment implements FormContract.View {
                     }
                 });
         presenter.start();
-//        Debug.setCam(edname, edhost, edport, edusername, edpassword);
+        Debug.setCam(edname, edhost, edport, edusername, edpassword);
         return view;
     }
 
@@ -229,6 +229,7 @@ public class FormFragment extends Fragment implements FormContract.View {
                     @Override
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
                         presenter.delCam();
+                        presenter.close();
                     }
                 })
                 .show();

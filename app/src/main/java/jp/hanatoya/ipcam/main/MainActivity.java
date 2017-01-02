@@ -48,6 +48,35 @@ public class MainActivity extends AppCompatActivity {
 //        setSupportActionBar(toolbar);
 //        toolbar.setTitle(R.string.app_name);
 
+
+        MainFragment mainFragment = MainFragment.newInstance();
+        new MainPresenter(mainFragment, daoSession.getCamDao(), daoSession.getSwitchDao());
+
+        FragmentManager fm = getFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+        ft.add(R.id.container, mainFragment);
+        ft.commit();
+        isStoragePermissionGranted();
+    }
+
+    public  boolean isStoragePermissionGranted() {
+        if (Build.VERSION.SDK_INT >= 23) {
+            if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+                return true;
+            } else {
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+                return false;
+            }
+        }
+        else { //permission is automatically granted on sdk<23 upon installation
+            return true;
+        }
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        final DaoSession daoSession =  ((MyApp)getApplication()).getDaoSession();
         this.busSubscription = MyApp.getInstance().getBus().toObserverable()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
@@ -89,33 +118,11 @@ public class MainActivity extends AppCompatActivity {
                             }
                         }
                 );
-        MainFragment mainFragment = MainFragment.newInstance();
-        new MainPresenter(mainFragment, daoSession.getCamDao(), daoSession.getSwitchDao());
-
-        FragmentManager fm = getFragmentManager();
-        FragmentTransaction ft = fm.beginTransaction();
-        ft.add(R.id.container, mainFragment);
-        ft.commit();
-        isStoragePermissionGranted();
-    }
-
-    public  boolean isStoragePermissionGranted() {
-        if (Build.VERSION.SDK_INT >= 23) {
-            if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
-                return true;
-            } else {
-                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
-                return false;
-            }
-        }
-        else { //permission is automatically granted on sdk<23 upon installation
-            return true;
-        }
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
+    protected void onStop() {
+        super.onStop();
         if (busSubscription != null && !busSubscription.isUnsubscribed()) {
             busSubscription.unsubscribe();
         }

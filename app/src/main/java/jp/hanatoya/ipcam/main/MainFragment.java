@@ -70,8 +70,6 @@ public class MainFragment extends Fragment implements MainContract.View {
         list.setLayoutManager(new LinearLayoutManager(getActivity()));
         list.setAdapter(adapter);
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
-        presenter.start();
-
         return view;
     }
 
@@ -79,6 +77,13 @@ public class MainFragment extends Fragment implements MainContract.View {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         getActivity().getMenuInflater().inflate(R.menu.menu_fragment_main, menu);
         super.onCreateOptionsMenu(menu,inflater);
+    }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        presenter.start();
     }
 
     @Override

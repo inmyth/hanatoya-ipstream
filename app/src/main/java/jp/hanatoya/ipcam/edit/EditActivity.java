@@ -75,7 +75,9 @@ public class EditActivity extends AppCompatActivity implements EditContract.View
                                 }else if (o instanceof  Events.DeleteSwitch){
                                     Events.DeleteSwitch event = (Events.DeleteSwitch) o;
                                      showDeleteSwitchDialog(event.s);
-                                }
+                                } else if (o instanceof Events.RequestBack){
+                                     finish();
+                                 }
                             }
                         }
                 );

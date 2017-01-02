@@ -12,7 +12,6 @@ public class MyApp extends Application {
     private static final String SCHEMA_NAME = "jp.hanatoya.ipcam";
     private DaoSession daoSession;
     private static MyApp instance;
-
     private RxBus bus;
 
     @Override
