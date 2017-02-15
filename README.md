@@ -29,7 +29,16 @@ v.104
 v.105
 - removed debug line
 
+v.106
+- added  TestActivity to test the new stream
+
+
+
 
 TODOS:
 - img cap
 - bug on com.android.support.design:24.2.0+ (FAB wrong position), need to revert to 24.1.1
+- build UI for Evidence stream
+-- registration
+-- stream
+-- control

@@ -106,7 +106,7 @@ public class FormPresenter implements FormContract.Presenter {
 
         VolleySingleton.getInstance(ctx).getRequestQueue().cancelAll(TAG_PING);
 
-        ImageRequest stringRequest = new ImageRequest(camExt.getImgUrl(),
+        ImageRequest imageRequest = new ImageRequest(camExt.getImgUrl(),
 
                 new Response.Listener<Bitmap>() {
 
@@ -143,8 +143,8 @@ public class FormPresenter implements FormContract.Presenter {
             }
         };
 
-        stringRequest.setTag(TAG_PING);
-        VolleySingleton.getInstance(ctx).addToRequestQueue(stringRequest);
+        imageRequest.setTag(TAG_PING);
+        VolleySingleton.getInstance(ctx).addToRequestQueue(imageRequest);
 
     }
 
