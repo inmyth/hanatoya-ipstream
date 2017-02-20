@@ -43,8 +43,8 @@ class MainPresenter implements MainContract.Presenter{
     }
 
     @Override
-    public void toStream(long id) {
-        MyApp.getInstance().getBus().send(new Events.SwitchToStream(id));
+    public void toStream(long id, String type) {
+        MyApp.getInstance().getBus().send(new Events.SwitchToStream(id, type));
     }
 
     @Override

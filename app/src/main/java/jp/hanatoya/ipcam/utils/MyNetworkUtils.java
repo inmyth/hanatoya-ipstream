@@ -20,6 +20,8 @@ public class MyNetworkUtils {
         return  glideUrl;
     }
 
+
+
     public static void addAuthToHeaderParam(HashMap<String, String> params,  String username, String password){
         String creds = String.format("%s:%s",username, password);
         String auth = "Basic " + Base64.encodeToString(creds.getBytes(), Base64.DEFAULT);

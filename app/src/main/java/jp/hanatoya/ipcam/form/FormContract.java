@@ -51,6 +51,8 @@ interface FormContract {
         void showDeleteConfirmDialog();
 
         void showCancelConfirmDialog();
+
+        void setEvidence(boolean isEvidence);
     }
 
 }

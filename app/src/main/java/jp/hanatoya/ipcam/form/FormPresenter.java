@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.util.Base64;
 import android.util.Log;
+import android.widget.ImageView;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkResponse;
@@ -27,10 +28,12 @@ import java.util.Map;
 
 import jp.hanatoya.ipcam.BasePresenter;
 import jp.hanatoya.ipcam.MyApp;
+import jp.hanatoya.ipcam.cam.EvidenceSystem;
 import jp.hanatoya.ipcam.main.Events;
 import jp.hanatoya.ipcam.models.CamExt;
 import jp.hanatoya.ipcam.repo.Cam;
 import jp.hanatoya.ipcam.repo.CamDao;
+import jp.hanatoya.ipcam.utils.EvidenceImageRequest;
 import jp.hanatoya.ipcam.utils.MyNetworkUtils;
 import jp.hanatoya.ipcam.utils.VolleySingleton;
 import rx.functions.Action1;
@@ -81,70 +84,72 @@ public class FormPresenter implements FormContract.Presenter {
         istestOk = false;
         camExt.initAPI();
 
-
-//        Mjpeg.newInstance()
-//                .credential(camExt.getCam().getUsername(), camExt.getCam().getPassword())
-//                .open(camExt.getStreamUrl(), TIMEOUT)
-//                .subscribe(new Action1<MjpegInputStream>() {
-//                               @Override
-//                               public void call(MjpegInputStream mjpegInputStream) {
-//                                   isTesting = false;
-//                                   istestOk = true;
-//                                    MyApp.getInstance().getBus().send(new Events.CameraPing(true));
-//                               }
-//                           },
-//                        new Action1<Throwable>() {
-//                            @Override
-//                            public void call(Throwable throwable) {
-//                                isTesting = false;
-//                                if (!istestOk) {
-//                                    MyApp.getInstance().getBus().send(new Events.CameraPing(false));
-//                                }
-//                            }
-//                        }
-//                );
-
         VolleySingleton.getInstance(ctx).getRequestQueue().cancelAll(TAG_PING);
 
-        ImageRequest imageRequest = new ImageRequest(camExt.getImgUrl(),
+        if (!camExt.isEvidenceSystem()){
+            ImageRequest imageRequest = new ImageRequest(camExt.getImgUrl(),
 
-                new Response.Listener<Bitmap>() {
+                    new Response.Listener<Bitmap>() {
 
-                    @Override
-                    public void onResponse(Bitmap response) {
-                       isTesting = false;
-                       istestOk = true;
-                        MyApp.getInstance().getBus().send(new Events.CameraPing(true));
-                    }
-                }, 0, 0, null, Bitmap.Config.RGB_565,
+                        @Override
+                        public void onResponse(Bitmap response) {
+                            isTesting = false;
+                            istestOk = true;
+                            MyApp.getInstance().getBus().send(new Events.CameraPing(true));
+                        }
+                    }, 0, 0, null, Bitmap.Config.RGB_565,
 
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
                             isTesting = false;
                             if (!istestOk) {
                                 MyApp.getInstance().getBus().send(new Events.CameraPing(false));
                             }
+                        }
                     }
+
+
+            ){
+                @Override
+                protected Response<Bitmap> parseNetworkResponse(NetworkResponse response) {
+                    return super.parseNetworkResponse(response);
                 }
 
+                @Override
+                public Map<String, String> getHeaders() throws AuthFailureError {
+                    HashMap<String, String> params = new HashMap<>();
+                    MyNetworkUtils.addAuthToHeaderParam(params, camExt.getCam().getUsername(), camExt.getCam().getPassword());
+                    return params;
+                }
+            };
 
-        ){
-            @Override
-            protected Response<Bitmap> parseNetworkResponse(NetworkResponse response) {
-                return super.parseNetworkResponse(response);
-            }
+            imageRequest.setTag(TAG_PING);
+            VolleySingleton.getInstance(ctx).addToRequestQueue(imageRequest);
+        }else{
+            EvidenceImageRequest evidenceImageRequest = new EvidenceImageRequest(camExt.getImgUrl(), new Response.Listener<Bitmap>() {
+                @Override
+                public void onResponse(Bitmap response) {
+                    isTesting = false;
+                    istestOk = true;
+                    MyApp.getInstance().getBus().send(new Events.CameraPing(true));
 
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                HashMap<String, String> params = new HashMap<>();
-                MyNetworkUtils.addAuthToHeaderParam(params, camExt.getCam().getUsername(), camExt.getCam().getPassword());
-                return params;
-            }
-        };
+                }
+            }, 0, 0, ImageView.ScaleType.CENTER, Bitmap.Config.ARGB_8888, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    isTesting = false;
+                    if (!istestOk) {
+                        MyApp.getInstance().getBus().send(new Events.CameraPing(false));
+                    }
+                }
+            }, camExt.getCam().getUsername(), camExt.getCam().getPassword());
 
-        imageRequest.setTag(TAG_PING);
-        VolleySingleton.getInstance(ctx).addToRequestQueue(imageRequest);
+            evidenceImageRequest.setTag(TAG_PING);
+            VolleySingleton.getInstance(ctx).addToRequestQueue(evidenceImageRequest);
+        }
+
+
 
     }
 

@@ -1,17 +1,11 @@
 package jp.hanatoya.ipcam.models;
 
 
-import android.util.Log;
-
-import org.greenrobot.greendao.annotation.Entity;
-import org.greenrobot.greendao.annotation.Id;
-import org.greenrobot.greendao.annotation.ToMany;
 import org.parceler.Parcel;
 import org.parceler.Transient;
 
-import java.util.List;
-
 import jp.hanatoya.ipcam.cam.CamAPI;
+import jp.hanatoya.ipcam.cam.EvidenceSystem;
 import jp.hanatoya.ipcam.cam.PLANEXCSWMV043GNV;
 import jp.hanatoya.ipcam.cam.PanasonicVLCM210;
 import jp.hanatoya.ipcam.repo.Cam;
@@ -42,11 +36,21 @@ public class CamExt {
         this.cam = cam;
     }
 
+    public boolean isEvidenceSystem(){
+        return  (camAPI != null && camAPI instanceof EvidenceSystem);
+    }
+
     public void initAPI() { // Match these with string resource
-        if (this.cam.getType().equals("Panasonic VL-CM210")) {
-            camAPI = new PanasonicVLCM210();
-        } else if (this.cam.getType().equals("Planex CS-WMV043G-NV")) {
-            camAPI = new PLANEXCSWMV043GNV();
+        switch (this.cam.getType()) {
+            case "Panasonic VL-CM210":
+                camAPI = new PanasonicVLCM210();
+                break;
+            case "Planex CS-WMV043G-NV":
+                camAPI = new PLANEXCSWMV043GNV();
+                break;
+            default:
+                camAPI = new EvidenceSystem();
+                break;
         }
     }
 

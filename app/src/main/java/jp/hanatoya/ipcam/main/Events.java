@@ -11,9 +11,11 @@ public class Events {
 
     public static class SwitchToStream {
         long id;
+        String type;
 
-        SwitchToStream(long id) {
+        SwitchToStream(long id, String type) {
             this.id = id;
+            this.type = type;
         }
     }
 

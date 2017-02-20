@@ -13,9 +13,9 @@ import jp.hanatoya.ipcam.BasePresenter;
 import jp.hanatoya.ipcam.BaseView;
 import jp.hanatoya.ipcam.repo.Switch;
 
-interface StreamContract {
+public interface StreamContract {
 
-    interface Presenter extends BasePresenter {
+    public interface Presenter extends BasePresenter {
 
         void loadIpCam();
 

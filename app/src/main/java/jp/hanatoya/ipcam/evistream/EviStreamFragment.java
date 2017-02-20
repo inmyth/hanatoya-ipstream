@@ -1,4 +1,4 @@
-package jp.hanatoya.ipcam.stream;
+package jp.hanatoya.ipcam.evistream;
 
 import android.app.Fragment;
 import android.os.Bundle;
@@ -8,54 +8,48 @@ import android.support.design.widget.Snackbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
+import android.widget.ImageView;
 
-import com.github.niqdev.mjpeg.DisplayMode;
-import com.github.niqdev.mjpeg.MjpegInputStream;
 import com.github.niqdev.mjpeg.MjpegView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import jp.hanatoya.ipcam.BasePresenter;
 import jp.hanatoya.ipcam.MyApp;
 import jp.hanatoya.ipcam.R;
 import jp.hanatoya.ipcam.main.Events;
+import jp.hanatoya.ipcam.stream.StreamContract;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 
-
-public class StreamFragment extends Fragment implements StreamContract.View{
-
-
+public class EviStreamFragment extends Fragment implements EviStreamContract.View {
     @BindView(R.id.coordinator) CoordinatorLayout coordinatorLayout;
-    @BindView(R.id.stream) MjpegView streamView;
+    @BindView(R.id.evistream) ImageView streamView;
+
+    private EviStreamPresenter presenter;
     private Subscription busSubscription;
 
-    private StreamPresenter presenter;
-
-    public static StreamFragment newInstance(long id) {
+    public static EviStreamFragment newInstance(long id) {
         Bundle args = new Bundle();
         args.putLong(BasePresenter.KEY_ID, id);
-        StreamFragment fragment = new StreamFragment();
+        EviStreamFragment fragment = new EviStreamFragment();
         fragment.setArguments(args);
         return fragment;
     }
 
 
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_stream, container, false);
+        View view = inflater.inflate(R.layout.fragment_evistream, container, false);
         ButterKnife.bind(this, view);
         presenter.start();
+        presenter.loadIpCam(streamView, getActivity());
         this.busSubscription = MyApp.getInstance().getBus().toObserverable()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         new Action1<Object>() {
-
                             @Override
                             public void call(Object o) {
                                 if (o instanceof Events.CgiClicked){
@@ -68,19 +62,6 @@ public class StreamFragment extends Fragment implements StreamContract.View{
         return view;
     }
 
-    
-    
-    @Override
-    public void onPause() {
-        streamView.stopPlayback();
-        super.onPause();
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        presenter.loadIpCam();
-    }
 
     @Override
     public void onDestroyView() {
@@ -91,20 +72,30 @@ public class StreamFragment extends Fragment implements StreamContract.View{
     }
 
     @Override
+    public void onPause() {
+        super.onPause();
+        presenter.stopIpCam();
+    }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        presenter.loadIpCam();
+    }
+
+    @Override
     public Bundle getBundle() {
         return getArguments();
     }
 
     @Override
-    public void draw(MjpegInputStream mjpegInputStream) {
-        streamView.setSource(mjpegInputStream);
-        streamView.setDisplayMode(DisplayMode.BEST_FIT);
-        streamView.showFps(true);
+    public void draw() {
+
     }
 
     @Override
-    public void showError(){
-        streamView.stopPlayback();
+    public void showError() {
         Snackbar.make(coordinatorLayout, R.string.error_stream, Snackbar.LENGTH_INDEFINITE)
                 .setAction(R.string.close, new View.OnClickListener() {
                     @Override
@@ -116,46 +107,43 @@ public class StreamFragment extends Fragment implements StreamContract.View{
     }
 
     @Override
-    public void setPresenter(StreamContract.Presenter presenter) {
-        this.presenter = (StreamPresenter)presenter;
-    }
-
-    @OnClick(R.id.up)
-    @Override
     public void up() {
-        presenter.up(getActivity());
+
     }
 
-    @OnClick(R.id.left)
     @Override
-    public void left() {presenter.left(getActivity());}
+    public void left() {
+
+    }
 
     @Override
-    @OnClick(R.id.right)
     public void right() {
-    presenter.right(getActivity());
+
     }
 
     @Override
-    @OnClick(R.id.down)
     public void down() {
-    presenter.down(getActivity());
+
     }
 
     @Override
-    @OnClick(R.id.center)
     public void center() {
-    presenter.center(getActivity());
+
     }
 
     @Override
-    @OnClick(R.id.cgi)
     public void openCgiDialog() {
-        presenter.openCgiDialogOrToast();
+
     }
 
     @Override
     public void toastNoCgi() {
-        Toast.makeText(getActivity(), R.string.error_nocgi, Toast.LENGTH_SHORT).show();
+
+    }
+
+
+    @Override
+    public void setPresenter(EviStreamContract.EviStreamPresenter presenter) {
+        this.presenter = (EviStreamPresenter)presenter;
     }
 }

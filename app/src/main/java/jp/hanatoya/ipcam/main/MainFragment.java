@@ -41,8 +41,8 @@ public class MainFragment extends Fragment implements MainContract.View {
         }
 
         @Override
-        public void onStreamClick(long id) {
-            presenter.toStream(id);
+        public void onStreamClick(long id, String type) {
+            presenter.toStream(id, type);
         }
     };
 
@@ -131,7 +131,7 @@ public class MainFragment extends Fragment implements MainContract.View {
     interface MainFragmentListener {
 
         public void onEditClick(long id);
-        public void onStreamClick(long id);
+        public void onStreamClick(long id, String type);
 
     }
 }

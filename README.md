@@ -32,6 +32,11 @@ v.105
 v.106
 - added  TestActivity to test the new stream
 
+v.107
+- added Evidence stream (Evidence stream needs cookie for auth.)
+-- Modified Form to support Evidence. If Evidence is selected, some other fields are hidden.
+-- Added repeating thread to call the image every 500ms.
+
 
 
 
@@ -42,3 +47,7 @@ TODOS:
 -- registration
 -- stream
 -- control
+
+NOTE:
+- when adding new cam
+-- add string resource, add in initAPI in CamExt

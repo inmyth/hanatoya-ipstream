@@ -10,12 +10,15 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -51,6 +54,7 @@ public class FormFragment extends Fragment implements FormContract.View {
     @BindView(R.id.delete) ImageView delete;
     @BindView(R.id.tapBarMenu) TapBarMenu tapBarMenu;
     @BindView(android.R.id.progress) ProgressBar progressBar;
+    @BindView(R.id.evPanel) LinearLayout evPanel;
 
 
     private FormPresenter presenter;
@@ -92,6 +96,18 @@ public class FormFragment extends Fragment implements FormContract.View {
         ArrayAdapter<CharSequence> adapterProtocol = ArrayAdapter.createFromResource(getActivity(), R.array.protocols, android.R.layout.simple_spinner_item);
         adapterProtocol.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spprotocol.setAdapter(adapterProtocol);
+        spmodel.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                setEvidence(i == 0);
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
         busSubscription = MyApp.getInstance().getBus().toObserverable()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action1<Object>() {
@@ -252,9 +268,27 @@ public class FormFragment extends Fragment implements FormContract.View {
     }
 
     @Override
+    public void setEvidence(boolean isEvidence) {
+        if (isEvidence){
+            edhost.setText(getString(R.string.evidence_host));
+            edport.setText("8801");
+            spprotocol.setSelection(0);
+            evPanel.setVisibility(View.GONE);
+
+        }else{
+            edhost.setText("");
+            edport.setText("");
+            evPanel.setVisibility(View.VISIBLE);
+
+        }
+
+    }
+
+    @Override
     public void setError(TextInputLayout textInputLayout) {
         textInputLayout.setError(getString(R.string.error_required));
     }
+
 
     @Override
     public String getString(EditText editText) {
@@ -284,6 +318,9 @@ public class FormFragment extends Fragment implements FormContract.View {
             tapBarMenu.setVisibility(View.GONE);
         }
     }
+
+
+
 
     @Override
     public Bundle getBundle() {
