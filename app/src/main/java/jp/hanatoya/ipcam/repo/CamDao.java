@@ -31,7 +31,8 @@ public class CamDao extends AbstractDao<Cam, Long> {
         public final static Property Port = new Property(5, int.class, "port", false, "PORT");
         public final static Property Username = new Property(6, String.class, "username", false, "USERNAME");
         public final static Property Password = new Property(7, String.class, "password", false, "PASSWORD");
-        public final static Property Status = new Property(8, Integer.class, "status", false, "STATUS");
+        public final static Property Node = new Property(8, String.class, "node", false, "NODE");
+        public final static Property Status = new Property(9, Integer.class, "status", false, "STATUS");
     }
 
 
@@ -55,7 +56,8 @@ public class CamDao extends AbstractDao<Cam, Long> {
                 "\"PORT\" INTEGER NOT NULL ," + // 5: port
                 "\"USERNAME\" TEXT," + // 6: username
                 "\"PASSWORD\" TEXT," + // 7: password
-                "\"STATUS\" INTEGER);"); // 8: status
+                "\"NODE\" TEXT," + // 8: node
+                "\"STATUS\" INTEGER);"); // 9: status
     }
 
     /** Drops the underlying database table. */
@@ -88,9 +90,14 @@ public class CamDao extends AbstractDao<Cam, Long> {
             stmt.bindString(8, password);
         }
 
+        String node = entity.getNode();
+        if (node != null) {
+            stmt.bindString(9, node);
+        }
+
         Integer status = entity.getStatus();
         if (status != null) {
-            stmt.bindLong(9, status);
+            stmt.bindLong(10, status);
         }
     }
 
@@ -118,9 +125,14 @@ public class CamDao extends AbstractDao<Cam, Long> {
             stmt.bindString(8, password);
         }
 
+        String node = entity.getNode();
+        if (node != null) {
+            stmt.bindString(9, node);
+        }
+
         Integer status = entity.getStatus();
         if (status != null) {
-            stmt.bindLong(9, status);
+            stmt.bindLong(10, status);
         }
     }
 
@@ -140,7 +152,8 @@ public class CamDao extends AbstractDao<Cam, Long> {
             cursor.getInt(offset + 5), // port
             cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6), // username
             cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7), // password
-            cursor.isNull(offset + 8) ? null : cursor.getInt(offset + 8) // status
+            cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8), // node
+            cursor.isNull(offset + 9) ? null : cursor.getInt(offset + 9) // status
         );
         return entity;
     }
@@ -155,7 +168,8 @@ public class CamDao extends AbstractDao<Cam, Long> {
         entity.setPort(cursor.getInt(offset + 5));
         entity.setUsername(cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6));
         entity.setPassword(cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7));
-        entity.setStatus(cursor.isNull(offset + 8) ? null : cursor.getInt(offset + 8));
+        entity.setNode(cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8));
+        entity.setStatus(cursor.isNull(offset + 9) ? null : cursor.getInt(offset + 9));
      }
 
     @Override

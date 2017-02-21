@@ -4,31 +4,19 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.util.Base64;
-import android.util.Log;
 import android.widget.ImageView;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkResponse;
-import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageRequest;
-import com.android.volley.toolbox.StringRequest;
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.model.GlideUrl;
-import com.bumptech.glide.load.resource.drawable.GlideDrawable;
-import com.bumptech.glide.request.RequestListener;
-import com.bumptech.glide.request.target.Target;
-import com.github.niqdev.mjpeg.Mjpeg;
-import com.github.niqdev.mjpeg.MjpegInputStream;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import jp.hanatoya.ipcam.BasePresenter;
 import jp.hanatoya.ipcam.MyApp;
-import jp.hanatoya.ipcam.cam.EvidenceSystem;
 import jp.hanatoya.ipcam.main.Events;
 import jp.hanatoya.ipcam.models.CamExt;
 import jp.hanatoya.ipcam.repo.Cam;
@@ -36,7 +24,6 @@ import jp.hanatoya.ipcam.repo.CamDao;
 import jp.hanatoya.ipcam.utils.EvidenceImageRequest;
 import jp.hanatoya.ipcam.utils.MyNetworkUtils;
 import jp.hanatoya.ipcam.utils.VolleySingleton;
-import rx.functions.Action1;
 
 
 public class FormPresenter implements FormContract.Presenter {
@@ -183,4 +170,6 @@ public class FormPresenter implements FormContract.Presenter {
     public void close() {
         MyApp.getInstance().getBus().send(new Events.RequestBack());
     }
+
+
 }

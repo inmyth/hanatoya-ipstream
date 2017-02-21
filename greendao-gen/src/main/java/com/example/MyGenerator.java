@@ -22,6 +22,7 @@ public class MyGenerator {
         camDb.addIntProperty("port").notNull();
         camDb.addStringProperty("username");
         camDb.addStringProperty("password");
+        camDb.addStringProperty("node");
         camDb.addIntProperty("status");
 
         Entity switchDb = schema.addEntity("Switch");

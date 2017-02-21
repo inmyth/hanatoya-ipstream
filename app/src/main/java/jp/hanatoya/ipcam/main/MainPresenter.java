@@ -1,14 +1,8 @@
 package jp.hanatoya.ipcam.main;
 
 import android.support.annotation.NonNull;
-import android.util.Log;
-import android.widget.Toast;
 
 
-
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.List;
 

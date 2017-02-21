@@ -24,7 +24,6 @@ import jp.hanatoya.ipcam.BasePresenter;
 import jp.hanatoya.ipcam.MyApp;
 import jp.hanatoya.ipcam.R;
 import jp.hanatoya.ipcam.main.Events;
-import jp.hanatoya.ipcam.main.MainActivity;
 import jp.hanatoya.ipcam.models.CamExt;
 import jp.hanatoya.ipcam.repo.CamDao;
 import jp.hanatoya.ipcam.repo.Switch;

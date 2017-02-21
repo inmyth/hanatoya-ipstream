@@ -20,6 +20,7 @@
     <string name="camExt.username">Username</string>
     <string name="camExt.password">Password</string>
     <string name="prefix.http">http://</string>
+    <string name="camExt.node">Node</string>
 
     <string name="dialog.howtoupload">How to upload</string>
     <string name="dialog.uploadinstruction">Put data.json in ipcam folder (you may need to create it) then click Import Settings.</string>

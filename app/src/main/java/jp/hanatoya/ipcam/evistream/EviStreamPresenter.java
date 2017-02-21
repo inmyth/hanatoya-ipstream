@@ -4,20 +4,16 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.widget.ImageView;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 
 import jp.hanatoya.ipcam.BasePresenter;
-import jp.hanatoya.ipcam.MyApp;
-import jp.hanatoya.ipcam.main.Events;
 import jp.hanatoya.ipcam.models.CamExt;
 import jp.hanatoya.ipcam.repo.CamDao;
 import jp.hanatoya.ipcam.repo.Switch;
 import jp.hanatoya.ipcam.repo.SwitchDao;
-import jp.hanatoya.ipcam.stream.StreamContract;
 import jp.hanatoya.ipcam.utils.EvidenceImageRequest;
 import jp.hanatoya.ipcam.utils.VolleySingleton;
 
@@ -46,7 +42,6 @@ public class EviStreamPresenter implements EviStreamContract.EviStreamPresenter 
         Bundle bundle = view.getBundle();
         long id = bundle.getLong(BasePresenter.KEY_ID);
         this.camExt = new CamExt(camDao.load(id));
-
     }
 
     @Override

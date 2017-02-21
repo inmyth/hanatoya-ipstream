@@ -63,6 +63,10 @@ public class CamExt {
     public String getImgUrl(){
         StringBuffer sb = buildUrl();
         sb.append(camAPI.img());
+        if (cam.getType().equals("Evidence") && cam.getNode() != null){
+            sb.append("&node=");
+            sb.append(cam.getNode());
+        }
         return sb.toString();
     }
 
@@ -96,12 +100,23 @@ public class CamExt {
         return sb.toString();
     }
 
+
+
     private StringBuffer buildUrl() {
         StringBuffer sb = new StringBuffer(this.cam.getProtocol());
         sb.append(this.cam.getHost());
-        sb.append(":");
-        sb.append(this.cam.getPort());
-        return sb;
+        String t = sb.toString();
+//        if (t.startsWith("http://evi.evidence.style/")){
+//            StringBuffer sb2 = new StringBuffer(t.substring(0, 25));
+//            sb2.append(":");
+//            sb2.append(this.cam.getPort());
+//            sb2.append(t.substring(25, t.length()));
+//            return sb2;
+//        }else{
+            sb.append(":");
+            sb.append(this.cam.getPort());
+            return sb;
+//        }
     }
 
 

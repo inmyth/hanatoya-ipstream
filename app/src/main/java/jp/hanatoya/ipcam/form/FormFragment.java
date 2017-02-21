@@ -44,12 +44,14 @@ public class FormFragment extends Fragment implements FormContract.View {
     @BindView(R.id.name) EditText edname;
     @BindView(R.id.host) EditText edhost;
     @BindView(R.id.port) EditText edport;
+    @BindView(R.id.node) EditText edNode;
     @BindView(R.id.username) EditText edusername;
     @BindView(R.id.password) EditText edpassword;
     @BindView(R.id.model) Spinner spmodel;
     @BindView(R.id.protocol) Spinner spprotocol;
     @BindView(R.id.til_name) TextInputLayout tilName;
     @BindView(R.id.til_host) TextInputLayout tilHost;
+    @BindView(R.id.til_node) TextInputLayout tilNode;
     @BindView(R.id.ok) ImageView ok;
     @BindView(R.id.delete) ImageView delete;
     @BindView(R.id.tapBarMenu) TapBarMenu tapBarMenu;
@@ -178,10 +180,12 @@ public class FormFragment extends Fragment implements FormContract.View {
         String username = getString(edusername);
         String password = getString(edpassword);
         String model = getModelFromSpinner(spmodel);
+        String node = getString(edNode);
 
         presenter.getCamExt().getCam().setUsername(username);
         presenter.getCamExt().getCam().setPassword(password);
         presenter.getCamExt().getCam().setType(model);
+        presenter.getCamExt().getCam().setNode(node);
 
         showProgressBar(true);
         showBottomTab(false);
@@ -218,11 +222,27 @@ public class FormFragment extends Fragment implements FormContract.View {
         edname.setText(camExt.getCam().getName());
         edhost.setText(camExt.getCam().getHost());
         edport.setText(String.valueOf(camExt.getCam().getPort()));
+        edNode.setText(camExt.getCam().getNode() != null ? camExt.getCam().getNode() : "" );
         if (camExt.getCam().getUsername() != null){
             edusername.setText(camExt.getCam().getUsername());
         }
         if (camExt.getCam().getPassword() != null){
             edpassword.setText(camExt.getCam().getPassword());
+        }
+
+        switch (camExt.getCam().getType()) {
+            case "Evidence":
+                spmodel.setSelection(0);
+                setEvidence(true);
+                break;
+            case "Panasonic VL-CM210":
+                spmodel.setSelection(1);
+                setEvidence(false);
+                break;
+            default:
+                spmodel.setSelection(2);
+                setEvidence(false);
+                break;
         }
     }
 
@@ -270,16 +290,19 @@ public class FormFragment extends Fragment implements FormContract.View {
     @Override
     public void setEvidence(boolean isEvidence) {
         if (isEvidence){
+            tilHost.setHint(getString(R.string.camExt_node));
             edhost.setText(getString(R.string.evidence_host));
             edport.setText("8801");
             spprotocol.setSelection(0);
             evPanel.setVisibility(View.GONE);
+            tilNode.setVisibility(View.VISIBLE);
 
         }else{
+            tilHost.setHint(getString(R.string.camExt_host));
+            tilNode.setVisibility(View.GONE);
             edhost.setText("");
             edport.setText("");
             evPanel.setVisibility(View.VISIBLE);
-
         }
 
     }

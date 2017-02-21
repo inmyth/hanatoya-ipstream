@@ -3,20 +3,16 @@ package jp.hanatoya.ipcam.utils;
 
 import android.os.Environment;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.google.gson.JsonParseException;
-import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
 
 import org.greenrobot.greendao.query.Query;
 
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
 

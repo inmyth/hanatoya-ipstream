@@ -5,7 +5,6 @@ import java.util.List;
 import jp.hanatoya.ipcam.BasePresenter;
 import jp.hanatoya.ipcam.BaseView;
 import jp.hanatoya.ipcam.models.CamExt;
-import jp.hanatoya.ipcam.repo.Cam;
 
 
 public interface MainContract {

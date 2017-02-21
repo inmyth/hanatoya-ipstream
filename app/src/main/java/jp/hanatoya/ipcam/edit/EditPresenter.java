@@ -2,9 +2,6 @@ package jp.hanatoya.ipcam.edit;
 
 import android.support.annotation.NonNull;
 
-import org.greenrobot.greendao.query.Query;
-
-import jp.hanatoya.ipcam.BasePresenter;
 import jp.hanatoya.ipcam.repo.Cam;
 import jp.hanatoya.ipcam.repo.CamDao;
 import jp.hanatoya.ipcam.repo.Switch;

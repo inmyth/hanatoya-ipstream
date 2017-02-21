@@ -5,7 +5,6 @@ import android.support.annotation.NonNull;
 
 import java.util.List;
 
-import jp.hanatoya.ipcam.repo.CamDao;
 import jp.hanatoya.ipcam.repo.Switch;
 import jp.hanatoya.ipcam.repo.SwitchDao;
 

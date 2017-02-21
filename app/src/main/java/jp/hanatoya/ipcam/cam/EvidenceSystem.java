@@ -57,7 +57,7 @@ public class EvidenceSystem implements CamAPI {
 
     @Override
     public String img() {
-        return "/getLiveImage?time=" + String.valueOf(System.currentTimeMillis()) +"&node=1";
+        return "/getLiveImage?time=" + String.valueOf(System.currentTimeMillis());
     }
 
 

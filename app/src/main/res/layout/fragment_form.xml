@@ -36,6 +36,19 @@
             </android.support.design.widget.TextInputLayout>
 
 
+            <android.support.design.widget.TextInputLayout
+                style="@style/formElement"
+                android:hint="@string/camExt.node"
+                android:id="@+id/til_node"
+                android:labelFor="@+id/node">
+
+                <EditText
+                    android:id="@+id/node"
+                    style="@style/formEditText"
+                    android:inputType="number"
+                    android:lines="1" />
+            </android.support.design.widget.TextInputLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

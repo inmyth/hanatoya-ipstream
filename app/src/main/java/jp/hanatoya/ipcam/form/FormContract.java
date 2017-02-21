@@ -25,6 +25,7 @@ interface FormContract {
         void delCam();
 
         void close();
+
     }
 
 

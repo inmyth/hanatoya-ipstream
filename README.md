@@ -37,7 +37,9 @@ v.107
 -- Modified Form to support Evidence. If Evidence is selected, some other fields are hidden.
 -- Added repeating thread to call the image every 500ms.
 
-
+v.108
+- added node to db and UI for Evidence
+- added switch layout between Evidence and other cams
 
 
 TODOS:

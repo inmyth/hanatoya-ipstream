@@ -20,23 +20,24 @@ import java.util.List;
 public class Cam {
 
     @Id(autoincrement = true)
-     Long id;
+    Long id;
 
     @NotNull
-     String type;
+    String type;
 
     @NotNull
-     String name;
+    String name;
 
     @NotNull
-     String host;
+    String host;
 
     @NotNull
-     String protocol;
-     int port;
-     String username;
-     String password;
-     Integer status;
+    String protocol;
+    int port;
+    String username;
+    String password;
+    String node;
+    Integer status;
 
     @ToMany(referencedJoinProperty = "camId")
     @OrderBy("id ASC")
@@ -51,7 +52,7 @@ public class Cam {
     }
 
     @Generated
-    public Cam(Long id, String type, String name, String host, String protocol, int port, String username, String password, Integer status) {
+    public Cam(Long id, String type, String name, String host, String protocol, int port, String username, String password, String node, Integer status) {
         this.id = id;
         this.type = type;
         this.name = name;
@@ -60,6 +61,7 @@ public class Cam {
         this.port = port;
         this.username = username;
         this.password = password;
+        this.node = node;
         this.status = status;
     }
 
@@ -76,7 +78,9 @@ public class Cam {
         return type;
     }
 
-    /** Not-null value; ensure this value is available before it is saved to the database. */
+    /**
+     * Not-null value; ensure this value is available before it is saved to the database.
+     */
     public void setType(@NotNull String type) {
         this.type = type;
     }
@@ -86,7 +90,9 @@ public class Cam {
         return name;
     }
 
-    /** Not-null value; ensure this value is available before it is saved to the database. */
+    /**
+     * Not-null value; ensure this value is available before it is saved to the database.
+     */
     public void setName(@NotNull String name) {
         this.name = name;
     }
@@ -96,7 +102,9 @@ public class Cam {
         return host;
     }
 
-    /** Not-null value; ensure this value is available before it is saved to the database. */
+    /**
+     * Not-null value; ensure this value is available before it is saved to the database.
+     */
     public void setHost(@NotNull String host) {
         this.host = host;
     }
@@ -106,7 +114,9 @@ public class Cam {
         return protocol;
     }
 
-    /** Not-null value; ensure this value is available before it is saved to the database. */
+    /**
+     * Not-null value; ensure this value is available before it is saved to the database.
+     */
     public void setProtocol(@NotNull String protocol) {
         this.protocol = protocol;
     }
@@ -135,6 +145,14 @@ public class Cam {
         this.password = password;
     }
 
+    public String getNode() {
+        return node;
+    }
+
+    public void setNode(String node) {
+        this.node = node;
+    }
+
     public Integer getStatus() {
         return status;
     }
@@ -142,7 +160,6 @@ public class Cam {
     public void setStatus(Integer status) {
         this.status = status;
     }
-
     public List<Switch> getSwitches() {
         return switches;
     }
