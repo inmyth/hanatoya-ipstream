@@ -44,8 +44,10 @@ public class EviStreamFragment extends Fragment implements EviStreamContract.Vie
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_evistream, container, false);
         ButterKnife.bind(this, view);
-        presenter.start();
-        presenter.loadIpCam(streamView, getActivity());
+        if (presenter != null) {
+            presenter.start();
+            presenter.loadIpCam(streamView, getActivity());
+        }
         this.busSubscription = MyApp.getInstance().getBus().toObserverable()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(

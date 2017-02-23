@@ -21,9 +21,11 @@ import jp.hanatoya.ipcam.evistream.EviStreamFragment;
 import jp.hanatoya.ipcam.evistream.EviStreamPresenter;
 import jp.hanatoya.ipcam.form.FormFragment;
 import jp.hanatoya.ipcam.form.FormPresenter;
+import jp.hanatoya.ipcam.repo.Cam;
 import jp.hanatoya.ipcam.repo.DaoSession;
 import jp.hanatoya.ipcam.repo.Switch;
 import jp.hanatoya.ipcam.stream.CgiDialogFragment;
+import jp.hanatoya.ipcam.stream.StreamActivity;
 import jp.hanatoya.ipcam.stream.StreamFragment;
 import jp.hanatoya.ipcam.stream.StreamPresenter;
 import jp.hanatoya.ipcam.utils.MyCamUtils;
@@ -93,15 +95,17 @@ public class MainActivity extends AppCompatActivity {
                                     onBackPressed();
                                 }else if (o instanceof Events.SwitchToStream){
                                     Events.SwitchToStream event = (Events.SwitchToStream)o;
-                                    if (!MyCamUtils.isEvidenceCam(event.type)){
-                                        StreamFragment streamFragment = StreamFragment.newInstance(event.id);
-                                        new StreamPresenter(streamFragment, daoSession.getCamDao(), daoSession.getSwitchDao());
-                                        replaceFragment(streamFragment);
-                                    }else{
-                                        EviStreamFragment eviStreamFragment = EviStreamFragment.newInstance(event.id);
-                                        new EviStreamPresenter(eviStreamFragment, daoSession.getCamDao(), daoSession.getSwitchDao());
-                                        replaceFragment(eviStreamFragment);
-                                    }
+                                    StreamActivity.launch(MainActivity.this, event.type, event.id);
+
+//                                    if (!MyCamUtils.isEvidenceCam(event.type)){
+//                                        StreamFragment streamFragment = StreamFragment.newInstance(event.id);
+//                                        new StreamPresenter(streamFragment, daoSession.getCamDao(), daoSession.getSwitchDao());
+//                                        replaceFragment(streamFragment);
+//                                    }else{
+//                                        EviStreamFragment eviStreamFragment = EviStreamFragment.newInstance(event.id);
+//                                        new EviStreamPresenter(eviStreamFragment, daoSession.getCamDao(), daoSession.getSwitchDao());
+//                                        replaceFragment(eviStreamFragment);
+//                                    }
 
                                 }else if (o instanceof  Events.OpenCgiDialog){
                                     Events.OpenCgiDialog event = (Events.OpenCgiDialog) o;

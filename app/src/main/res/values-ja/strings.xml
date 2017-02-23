@@ -1,0 +1,57 @@
+<resources>
+    <string name="app_name">Evidence Player</string>
+
+    <string name="close">閉じる</string>
+
+    <string name="error.stream">ストリームを取得できません</string>
+    <string name="error.verify">カメラを認証出来ません</string>
+    <string name="error.required">必須</string>
+    <string name="error.nocgi">このカメラにはCGIは付いてありません</string>
+
+    <string name="camExt.name">カメラ名</string>
+    <string name="camExt.host">ホスト</string>
+    <string name="cam.cgi">CGI</string>
+    <string name="camExt.protocol">プロトコル</string>
+    <string name="camExt.type">タイプ</string>
+    <string name="camExt.port">ポート (デフォルト:80)</string>
+    <string name="camExt.username">ユーザネーム</string>
+    <string name="camExt.password">パスワード</string>
+    <string name="prefix.http">http://</string>
+    <string name="camExt.node">Node</string>
+
+    <string name="dialog.howtoupload">アップロード方法</string>
+    <string name="dialog.uploadinstruction">data.jsonを「ipcam」フォルダに入れておいて「設定インポート」をタップして下さい。フォルダを作る場合があります</string>
+    <string name="dialog.uploaderror">設定インポートにはエラーは発生しました.</string>
+    <string name="dialog.uploadsuccess">設定インポートは完了しました</string>
+    <string name="dialog.confirm">ご確認下さい</string>
+    <string name="dialog.deletecam">このカメラを削除しますか。</string>
+    <string name="dialog.cancelform">カメラ登録は完了していません。取り消しますか ?</string>
+    <string name="dialog.deletecgi">このＣＧＩを消しますか: %s</string>
+    <string name="dialog.cgiclicked">タップされたＣＧＩ : %s</string>
+    <string name="dialog.dbdumped">設定はipcamに保存されました</string>
+
+    <string name="menu.exportdb">設定エクスポート</string>
+    <string name="menu.importdb">設定インポート</string>
+
+    <string name="evidence.host">evi.evidence.style</string>
+
+    <string name="fragment.edit">編集</string>
+    <string name="fragment.switch">カスタムアクセス</string>
+
+    <string name="edit">編集</string>
+
+    <string name="iv.gen">generic</string>
+    <string-array name="cams">
+        <item>Evidence</item>
+        <item>Panasonic VL-CM210</item>
+        <item>Planex CS-WMV043G-NV</item>
+    </string-array>
+
+    <string-array name="protocols">
+        <item>http://</item>
+    </string-array>
+
+
+
+
+</resources>

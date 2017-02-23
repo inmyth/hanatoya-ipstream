@@ -41,6 +41,12 @@ v.108
 - added node to db and UI for Evidence
 - added switch layout between Evidence and other cams
 
+v.109
+- added landscape layout for stream
+-- moved stream fragment to stream activity
+- added jp strings
+- changed title
+- node now accepts text
 
 TODOS:
 - img cap

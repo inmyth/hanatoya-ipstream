@@ -50,7 +50,9 @@ public class StreamFragment extends Fragment implements StreamContract.View{
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_stream, container, false);
         ButterKnife.bind(this, view);
-        presenter.start();
+        if (presenter != null) {
+            presenter.start();
+        }
         this.busSubscription = MyApp.getInstance().getBus().toObserverable()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(

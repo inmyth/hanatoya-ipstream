@@ -45,7 +45,7 @@
                 <EditText
                     android:id="@+id/node"
                     style="@style/formEditText"
-                    android:inputType="number"
+                    android:inputType="text"
                     android:lines="1" />
             </android.support.design.widget.TextInputLayout>
 
