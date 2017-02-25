@@ -26,8 +26,6 @@ import rx.Subscription;
 public class StreamActivity extends AppCompatActivity {
     private static final String LOAD_CAM_TYPE = "LOAD_CAM_TYPE";
     private static final String LOAD_CAM_ID = "LOAD_CAM_ID";
-
-
     private Subscription busSubscription;
 
 
@@ -35,37 +33,27 @@ public class StreamActivity extends AppCompatActivity {
         Intent intent = new Intent(ctx, StreamActivity.class);
         intent.putExtra(LOAD_CAM_TYPE, type);
         intent.putExtra(LOAD_CAM_ID, id);
-
         ctx.startActivity(intent);
     }
 
 
-    private Fragment fragment;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        final DaoSession daoSession =  ((MyApp)getApplication()).getDaoSession();
-
         long id = getIntent().getLongExtra(LOAD_CAM_ID, -1);
         String type = getIntent().getStringExtra(LOAD_CAM_TYPE);
 
-
-
-        if (!MyCamUtils.isEvidenceCam(type)){
-            StreamFragment streamFragment = StreamFragment.newInstance(id);
-            new StreamPresenter(streamFragment, daoSession.getCamDao(), daoSession.getSwitchDao());
-            this.fragment = streamFragment;
-            replaceFragment(streamFragment);
-        }else{
-            EviStreamFragment eviStreamFragment = EviStreamFragment.newInstance(id);
-            new EviStreamPresenter(eviStreamFragment, daoSession.getCamDao(), daoSession.getSwitchDao());
-            this.fragment = eviStreamFragment;
-            replaceFragment(eviStreamFragment);
+        if (savedInstanceState == null) {
+            if (!MyCamUtils.isEvidenceCam(type)) {
+                StreamFragment streamFragment = StreamFragment.newInstance(id);
+                replaceFragment(streamFragment);
+            } else {
+                EviStreamFragment eviStreamFragment = EviStreamFragment.newInstance(id);
+                replaceFragment(eviStreamFragment);
+            }
         }
-
-
     }
 
     private void replaceFragment(Fragment fragment){
@@ -75,12 +63,5 @@ public class StreamActivity extends AppCompatActivity {
         ft.commit();
     }
 
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-        FragmentManager fm = getFragmentManager();
-        FragmentTransaction ft = fm.beginTransaction();
-        ft.remove(this.fragment);
 
-    }
 }

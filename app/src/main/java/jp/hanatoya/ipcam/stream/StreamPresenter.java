@@ -48,7 +48,7 @@ public class StreamPresenter implements StreamContract.Presenter{
 
     public StreamPresenter(@NonNull StreamContract.View view, @NonNull CamDao camDao, @NonNull SwitchDao switchDao){
         this.camDao = camDao;
-        view.setPresenter(this);
+//        view.setPresenter(this);
         this.view = view;
         this.switchDao = switchDao;
 

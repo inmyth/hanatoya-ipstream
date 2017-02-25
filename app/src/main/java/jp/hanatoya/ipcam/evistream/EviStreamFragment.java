@@ -18,6 +18,7 @@ import jp.hanatoya.ipcam.BasePresenter;
 import jp.hanatoya.ipcam.MyApp;
 import jp.hanatoya.ipcam.R;
 import jp.hanatoya.ipcam.main.Events;
+import jp.hanatoya.ipcam.repo.DaoSession;
 import jp.hanatoya.ipcam.stream.StreamContract;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
@@ -38,16 +39,20 @@ public class EviStreamFragment extends Fragment implements EviStreamContract.Vie
         return fragment;
     }
 
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        final DaoSession daoSession =  ((MyApp)getActivity().getApplication()).getDaoSession();
+        this.presenter =  new EviStreamPresenter(this, daoSession.getCamDao(), daoSession.getSwitchDao());
+    }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_evistream, container, false);
         ButterKnife.bind(this, view);
-        if (presenter != null) {
-            presenter.start();
-            presenter.loadIpCam(streamView, getActivity());
-        }
+        presenter.start();
+        presenter.loadIpCam(streamView, getActivity());
         this.busSubscription = MyApp.getInstance().getBus().toObserverable()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(

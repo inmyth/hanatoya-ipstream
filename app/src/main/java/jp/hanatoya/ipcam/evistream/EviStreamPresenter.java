@@ -32,7 +32,7 @@ public class EviStreamPresenter implements EviStreamContract.EviStreamPresenter 
 
     public EviStreamPresenter( EviStreamContract.View view, CamDao camDao, SwitchDao switchDao) {
         this.view = view;
-        view.setPresenter(this);
+//        view.setPresenter(this);
         this.camDao = camDao;
         this.switchDao = switchDao;
     }

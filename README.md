@@ -48,6 +48,9 @@ v.109
 - changed title
 - node now accepts text
 
+v.110
+- changed the stream activity mechanism. moved presenter to fragment#onCreate
+
 TODOS:
 - img cap
 - bug on com.android.support.design:24.2.0+ (FAB wrong position), need to revert to 24.1.1
