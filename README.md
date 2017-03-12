@@ -54,6 +54,11 @@ v.110
 v.111
 - added launcher icon
 
+v.112
+- added CGI (Evidence cam sets creds in Cookie)
+- fixed load all CGIS in custom access fragment
+- fixed busscription in StreamActivity
+
 TODOS:
 - img cap
 - bug on com.android.support.design:24.2.0+ (FAB wrong position), need to revert to 24.1.1
