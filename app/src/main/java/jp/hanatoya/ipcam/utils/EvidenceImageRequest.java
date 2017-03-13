@@ -16,7 +16,7 @@ import jp.hanatoya.ipcam.models.CookieModel;
 
 
 public class EvidenceImageRequest extends com.android.volley.toolbox.ImageRequest {
-    private static final String COOKIE_INFO = "info";
+    public static final String COOKIE_INFO = "info";
     private String user,password;
 
 
@@ -32,6 +32,10 @@ public class EvidenceImageRequest extends com.android.volley.toolbox.ImageReques
     @Override
     public Map<String, String> getHeaders() throws AuthFailureError {
         Map<String, String> headers = super.getHeaders();
+        return setEvidenceHeaders(headers, user, password);
+    }
+
+    public static Map<String, String> setEvidenceHeaders(Map<String, String> headers, String user, String password){
 
         if (headers == null || headers.equals(Collections.emptyMap())) {
             headers = new HashMap<String, String>();

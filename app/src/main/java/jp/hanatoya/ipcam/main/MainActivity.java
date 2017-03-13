@@ -96,26 +96,6 @@ public class MainActivity extends AppCompatActivity {
                                 }else if (o instanceof Events.SwitchToStream){
                                     Events.SwitchToStream event = (Events.SwitchToStream)o;
                                     StreamActivity.launch(MainActivity.this, event.type, event.id);
-
-//                                    if (!MyCamUtils.isEvidenceCam(event.type)){
-//                                        StreamFragment streamFragment = StreamFragment.newInstance(event.id);
-//                                        new StreamPresenter(streamFragment, daoSession.getCamDao(), daoSession.getSwitchDao());
-//                                        replaceFragment(streamFragment);
-//                                    }else{
-//                                        EviStreamFragment eviStreamFragment = EviStreamFragment.newInstance(event.id);
-//                                        new EviStreamPresenter(eviStreamFragment, daoSession.getCamDao(), daoSession.getSwitchDao());
-//                                        replaceFragment(eviStreamFragment);
-//                                    }
-
-                                }else if (o instanceof  Events.OpenCgiDialog){
-                                    Events.OpenCgiDialog event = (Events.OpenCgiDialog) o;
-                                    final CgiDialogFragment cgiDialogFragment = CgiDialogFragment.newInstance(event.camExt, new CgiDialogFragment.Listener() {
-                                        @Override
-                                        public void cgiClick(Switch s) {
-                                            MyApp.getInstance().getBus().send(new Events.CgiClicked(s));
-                                        }
-                                    });
-                                    cgiDialogFragment.show(getSupportFragmentManager(), "fragment_stream_cgi");
                                 }else  if (o instanceof Events.RequestFileImportInstructionDialog){
                                     new MaterialDialog.Builder(MainActivity.this)
                                             .title(R.string.dialog_howtoupload)

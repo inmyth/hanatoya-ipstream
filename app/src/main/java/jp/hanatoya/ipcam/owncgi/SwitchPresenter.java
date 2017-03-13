@@ -3,6 +3,8 @@ package jp.hanatoya.ipcam.owncgi;
 
 import android.support.annotation.NonNull;
 
+import org.greenrobot.greendao.query.Query;
+
 import java.util.List;
 
 import jp.hanatoya.ipcam.repo.Switch;
@@ -32,8 +34,8 @@ public class SwitchPresenter implements SwitchContract.Presenter {
 
     @Override
     public void loadAll() {
-        List<Switch> switchList = switchDao.loadAll();
-        view.populate(switchList);
+        Query query = switchDao.queryBuilder().where(SwitchDao.Properties.CamId.eq(this.camId)).orderAsc(SwitchDao.Properties.Id).build();
+        view.populate(query.list());
     }
 
     public long getCamId() {

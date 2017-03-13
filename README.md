@@ -59,6 +59,10 @@ v.112
 - fixed load all CGIS in custom access fragment
 - fixed busscription in StreamActivity
 
+v.113
+- fixed CGI click
+- EVidence CGI is now using Basic Authentication
+
 TODOS:
 - img cap
 - bug on com.android.support.design:24.2.0+ (FAB wrong position), need to revert to 24.1.1

@@ -21,7 +21,6 @@
         android:layout_height="wrap_content"
         android:textSize="12sp"
         android:layout_width="match_parent"
-        android:maxLines="1"
         android:textColor="@android:color/darker_gray"
         android:paddingRight="@dimen/spacing_medium"
         android:paddingLeft="@dimen/spacing_medium"

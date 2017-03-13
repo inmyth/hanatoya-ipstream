@@ -140,16 +140,16 @@ public class StreamPresenter implements StreamContract.Presenter{
 
 
 
-    private StringRequest setupReq(String url, final String username, final String password){
+    public static StringRequest setupReq(final String url, final String username, final String password){
         return new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Log.i("Volley Up", response);
+                Log.i("Volley CGI " + url, response);
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.e("Volley Error", error.getMessage());
+                Log.e("Volley Error", url );
             }
         }){
             @Override

@@ -9,11 +9,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.github.niqdev.mjpeg.MjpegView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import jp.hanatoya.ipcam.BasePresenter;
 import jp.hanatoya.ipcam.MyApp;
 import jp.hanatoya.ipcam.R;
@@ -139,13 +141,15 @@ public class EviStreamFragment extends Fragment implements EviStreamContract.Vie
     }
 
     @Override
+    @OnClick(R.id.cgi)
     public void openCgiDialog() {
+        presenter.openCgiDialogOrToast();
 
     }
 
     @Override
     public void toastNoCgi() {
-
+        Toast.makeText(getActivity(), R.string.error_nocgi, Toast.LENGTH_SHORT).show();
     }
 
 
