@@ -151,9 +151,10 @@ public class EviStreamPresenter implements EviStreamContract.EviStreamPresenter 
 //            }
 //        }, camExt.getCam().getUsername(), camExt.getCam().getPassword());
 //
-        StringRequest stringRequest = StreamPresenter.setupReq(camExt.buildCgiUrl(s), camExt.getCam().getUsername(), camExt.getCam().getPassword());
+        String url = camExt.buildCgiUrl(s);
+        StringRequest stringRequest = StreamPresenter.setupReq(url, camExt.getCam().getUsername(), camExt.getCam().getPassword());
         VolleySingleton.getInstance(context).addToRequestQueue(stringRequest);
-        Toast.makeText(context, context.getString(R.string.dialog_cgiclicked, s.getName()), Toast.LENGTH_LONG).show();
+        Toast.makeText(context, context.getString(R.string.dialog_cgiclicked, s.getName() + " - " + url), Toast.LENGTH_LONG).show();
     }
 
     @Override

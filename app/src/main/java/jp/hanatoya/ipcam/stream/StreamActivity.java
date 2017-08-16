@@ -25,6 +25,7 @@ public class StreamActivity extends AppCompatActivity {
     private static final String LOAD_CAM_TYPE = "LOAD_CAM_TYPE";
     private static final String LOAD_CAM_ID = "LOAD_CAM_ID";
     private Subscription busSubscription;
+    private CgiDialogFragment cgiDialogFragment;
 
 
     public static void launch(Context ctx, String type, long id) {
@@ -66,10 +67,11 @@ public class StreamActivity extends AppCompatActivity {
                     public void call(Object o) {
                         if (o instanceof Events.OpenCgiDialog) {
                             Events.OpenCgiDialog event = (Events.OpenCgiDialog) o;
-                            final CgiDialogFragment cgiDialogFragment = CgiDialogFragment.newInstance(event.camExt, new CgiDialogFragment.Listener() {
+                            cgiDialogFragment = CgiDialogFragment.newInstance(event.camExt, new CgiDialogFragment.Listener() {
                                 @Override
                                 public void cgiClick(Switch s) {
                                     MyApp.getInstance().getBus().send(new Events.CgiClicked(s));
+                                    cgiDialogFragment.dismiss();
                                 }
                             });
                             cgiDialogFragment.show(getSupportFragmentManager(), "fragment_stream_cgi");

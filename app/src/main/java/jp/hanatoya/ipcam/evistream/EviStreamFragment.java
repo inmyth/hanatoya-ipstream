@@ -64,6 +64,7 @@ public class EviStreamFragment extends Fragment implements EviStreamContract.Vie
                                 if (o instanceof Events.CgiClicked){
                                     Events.CgiClicked event = (Events.CgiClicked)o;
                                     presenter.cgi(getActivity(), event.s);
+
                                 }
                             }
                         }

@@ -125,8 +125,9 @@ public class StreamPresenter implements StreamContract.Presenter{
 
     @Override
     public void cgi(Context context, Switch s) {
-        VolleySingleton.getInstance(context).addToRequestQueue(setupReq(camExt.buildCgiUrl(s), camExt.getCam().getUsername(), camExt.getCam().getPassword()));
-        Toast.makeText(context, context.getString(R.string.dialog_cgiclicked, s.getName()), Toast.LENGTH_LONG).show();
+        String url = camExt.buildCgiUrl(s);
+        VolleySingleton.getInstance(context).addToRequestQueue(setupReq(url, camExt.getCam().getUsername(), camExt.getCam().getPassword()));
+        Toast.makeText(context, context.getString(R.string.dialog_cgiclicked, s.getName() + " - " + url), Toast.LENGTH_LONG).show();
     }
 
     @Override

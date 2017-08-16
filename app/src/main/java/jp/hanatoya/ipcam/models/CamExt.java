@@ -123,13 +123,25 @@ public class CamExt {
 
     public String buildCgiUrl(Switch s){
         StringBuffer sb = new StringBuffer(this.cam.getProtocol());
-        sb.append(this.cam.getHost());
-        sb.append(":");
-        sb.append(s.getPort());
-        if (!s.getCgi().startsWith("/")){
-            sb.append("/");
+//        sb.append(this.cam.getHost());
+//        sb.append(":");
+//        sb.append(s.getPort());
+//        if (!s.getCgi().startsWith("/")){
+//            sb.append("/");
+//        }
+        String cgi = s.getCgi();
+        if (s.getPort() == 0 || s.getPort() == 80){
+            sb.append(s.getCgi());
+        }else{
+            int firstSlashPos = cgi.indexOf('/');
+            if (firstSlashPos > 0){
+                sb.append(new StringBuffer(cgi).insert(firstSlashPos, ":" + s.getPort()).toString());
+            } else{
+                sb.append(s.getCgi());
+                sb.append(":");
+                sb.append(s.getPort());
+            }
         }
-        sb.append(s.getCgi());
         return sb.toString();
 
     }

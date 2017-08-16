@@ -63,6 +63,10 @@ v.113
 - fixed CGI click
 - EVidence CGI is now using Basic Authentication
 
+v.114
+- CGI click will close dialogfragment
+- CGI now starts
+
 TODOS:
 - img cap
 - bug on com.android.support.design:24.2.0+ (FAB wrong position), need to revert to 24.1.1
