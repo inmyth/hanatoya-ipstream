@@ -67,6 +67,10 @@ v.114
 - CGI click will close dialogfragment
 - CGI now starts
 
+v.115
+- Added Evidence 2 host
+- changed (String values, CameExt, FormFragment)
+
 TODOS:
 - img cap
 - bug on com.android.support.design:24.2.0+ (FAB wrong position), need to revert to 24.1.1
