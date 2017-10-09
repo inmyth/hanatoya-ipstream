@@ -33,23 +33,14 @@
     <string name="menu.exportdb">設定エクスポート</string>
     <string name="menu.importdb">設定インポート</string>
 
-    <string name="evidence.host">evi.evidence.style</string>
-
     <string name="fragment.edit">編集</string>
     <string name="fragment.switch">カスタムアクセス</string>
 
     <string name="edit">編集</string>
 
     <string name="iv.gen">generic</string>
-    <string-array name="cams">
-        <item>Evidence</item>
-        <item>Panasonic VL-CM210</item>
-        <item>Planex CS-WMV043G-NV</item>
-    </string-array>
 
-    <string-array name="protocols">
-        <item>http://</item>
-    </string-array>
+
 
 
 

@@ -53,7 +53,7 @@ interface FormContract {
 
         void showCancelConfirmDialog();
 
-        void setEvidence(boolean isEvidence);
+        void setEvidence(String camType);
     }
 
 }

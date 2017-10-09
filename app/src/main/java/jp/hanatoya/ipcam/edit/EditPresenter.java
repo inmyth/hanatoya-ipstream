@@ -36,7 +36,6 @@ class EditPresenter implements EditContract.Presenter {
         s.setCamId(cam.getId());
         try {
             if (s.getId() == null) { // new switch
-
                 switchDao.insert(s);
             } else {
                 switchDao.insertOrReplace(s);

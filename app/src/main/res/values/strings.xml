@@ -36,7 +36,9 @@
     <string name="menu.exportdb">Export Settings</string>
     <string name="menu.importdb">Import Settings</string>
 
-    <string name="evidence.host">evi.evidence.style</string>
+    <string name="evidence.host" translatable="false">evi.evidence.style</string>
+    <string name="evidence.host.2" translatable="false">e2.evidence.style</string>
+
 
     <string name="fragment.edit">Edit</string>
     <string name="fragment.switch">Custom Access</string>
@@ -44,13 +46,14 @@
     <string name="edit">edit</string>
 
     <string name="iv.gen">generic</string>
-    <string-array name="cams">
+    <string-array name="cams" translatable="false">
         <item>Evidence</item>
+        <item>Evidence 2</item>
         <item>Panasonic VL-CM210</item>
         <item>Planex CS-WMV043G-NV</item>
     </string-array>
 
-    <string-array name="protocols">
+    <string-array name="protocols" translatable="false">
         <item>http://</item>
     </string-array>
 

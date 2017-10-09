@@ -92,17 +92,16 @@ public class FormFragment extends Fragment implements FormContract.View {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_form, container, false);
         ButterKnife.bind(this, view);
-        ArrayAdapter<CharSequence> adapterType = ArrayAdapter.createFromResource(getActivity(), R.array.cams, android.R.layout.simple_spinner_item);
+        final ArrayAdapter<CharSequence> adapterType = ArrayAdapter.createFromResource(getActivity(), R.array.cams, android.R.layout.simple_spinner_item);
         adapterType.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spmodel.setAdapter(adapterType);
-        ArrayAdapter<CharSequence> adapterProtocol = ArrayAdapter.createFromResource(getActivity(), R.array.protocols, android.R.layout.simple_spinner_item);
+        final ArrayAdapter<CharSequence> adapterProtocol = ArrayAdapter.createFromResource(getActivity(), R.array.protocols, android.R.layout.simple_spinner_item);
         adapterProtocol.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spprotocol.setAdapter(adapterProtocol);
         spmodel.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                setEvidence(i == 0);
-
+                setEvidence(adapterType.getItem(i).toString());
             }
 
             @Override
@@ -230,18 +229,20 @@ public class FormFragment extends Fragment implements FormContract.View {
             edpassword.setText(camExt.getCam().getPassword());
         }
 
+        setEvidence(camExt.getCam().getType());
+
         switch (camExt.getCam().getType()) {
             case "Evidence":
                 spmodel.setSelection(0);
-                setEvidence(true);
+                break;
+            case "Evidence 2":
+                spmodel.setSelection(1);
                 break;
             case "Panasonic VL-CM210":
-                spmodel.setSelection(1);
-                setEvidence(false);
+                spmodel.setSelection(2);
                 break;
             default:
-                spmodel.setSelection(2);
-                setEvidence(false);
+                spmodel.setSelection(3);
                 break;
         }
     }
@@ -288,10 +289,14 @@ public class FormFragment extends Fragment implements FormContract.View {
     }
 
     @Override
-    public void setEvidence(boolean isEvidence) {
-        if (isEvidence){
+    public void setEvidence(String camType) {
+        if (camType.contains("Evidence")){
             tilHost.setHint(getString(R.string.camExt_node));
-            edhost.setText(getString(R.string.evidence_host));
+            if(camType.contains("Evidence 2")) {
+                edhost.setText(getString(R.string.evidence_host_2));
+            } else {
+                edhost.setText(getString(R.string.evidence_host));
+            }
             edport.setText("8801");
             spprotocol.setSelection(0);
             evPanel.setVisibility(View.GONE);

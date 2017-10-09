@@ -6,6 +6,7 @@ import org.parceler.Transient;
 
 import jp.hanatoya.ipcam.cam.CamAPI;
 import jp.hanatoya.ipcam.cam.EvidenceSystem;
+import jp.hanatoya.ipcam.cam.EvidenceSystem2;
 import jp.hanatoya.ipcam.cam.PLANEXCSWMV043GNV;
 import jp.hanatoya.ipcam.cam.PanasonicVLCM210;
 import jp.hanatoya.ipcam.repo.Cam;
@@ -37,7 +38,7 @@ public class CamExt {
     }
 
     public boolean isEvidenceSystem(){
-        return  (camAPI != null && camAPI instanceof EvidenceSystem);
+        return  (camAPI != null && (camAPI instanceof EvidenceSystem || camAPI instanceof EvidenceSystem2));
     }
 
     public void initAPI() { // Match these with string resource
@@ -47,6 +48,9 @@ public class CamExt {
                 break;
             case "Planex CS-WMV043G-NV":
                 camAPI = new PLANEXCSWMV043GNV();
+                break;
+            case "Evidence 2":
+                camAPI = new EvidenceSystem2();
                 break;
             default:
                 camAPI = new EvidenceSystem();
@@ -63,7 +67,7 @@ public class CamExt {
     public String getImgUrl(){
         StringBuffer sb = buildUrl();
         sb.append(camAPI.img());
-        if (cam.getType().equals("Evidence") && cam.getNode() != null){
+        if (cam.getType().contains("Evidence") && cam.getNode() != null){
             sb.append("&node=");
             sb.append(cam.getNode());
         }
